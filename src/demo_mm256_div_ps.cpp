@@ -23,7 +23,7 @@ int main() {
     __m256 vec_b = _mm256_load_ps(b);
     
     start = std::chrono::high_resolution_clock::now();
-    __m256 vec_result = _mm256_div_ps(vec_a, vec_b);  // Single instruction for 8 divisions
+    __m256 vec_result = _mm256_div_ps(vec_a, vec_b);  // Одна инструкция для 8 делений
     auto vector_time = std::chrono::high_resolution_clock::now() - start;
     
     _mm256_store_ps(vector_result, vec_result);
@@ -40,11 +40,11 @@ int main() {
     auto vector_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(vector_time).count();
     double speedup = (vector_ns > 0) ? static_cast<double>(scalar_ns) / vector_ns : 0.0;
 
-    std::cout << "AVX256 Division Demo (8 floats)\n";
-    std::cout << "Results match: " << (correct ? "YES" : "NO") << "\n";
-    std::cout << "Scalar time: " << scalar_ns << " ns\n";
-    std::cout << "Vector time: " << vector_ns << " ns\n";
-    std::cout << "Speedup: " << std::fixed << std::setprecision(2) << speedup << "x\n\n";
+    std::cout << "Демонстрация деления AVX256 (8 чисел float)\n";
+    std::cout << "Результаты совпадают: " << (correct ? "ДА" : "НЕТ") << "\n";
+    std::cout << "Время работы скалярного кода: " << scalar_ns << " нс\n";
+    std::cout << "Время работы векторного кода: " << vector_ns << " нс\n";
+    std::cout << "Ускорение: " << std::fixed << std::setprecision(2) << speedup << "x\n\n";
 
     constexpr size_t LARGE_N = 1024;
     alignas(32) std::vector<float> large_a(LARGE_N);
@@ -84,11 +84,11 @@ int main() {
     vector_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(vector_time).count();
     speedup = (vector_ns > 0) ? static_cast<double>(scalar_ns) / vector_ns : 0.0;
     
-    std::cout << "Large Array (1024 elements)\n";
-    std::cout << "Results match: " << (correct ? "YES" : "NO") << "\n";
-    std::cout << "Scalar time: " << scalar_ns << " ns\n";
-    std::cout << "Vector time: " << vector_ns << " ns\n";
-    std::cout << "Speedup: " << std::fixed << std::setprecision(2) << speedup << "x\n";
+    std::cout << "Большой массив (1024 элемента)\n";
+    std::cout << "Результаты совпадают: " << (correct ? "ДА" : "НЕТ") << "\n";
+    std::cout << "Время работы скалярного кода: " << scalar_ns << " нс\n";
+    std::cout << "Время работы векторного кода: " << vector_ns << " нс\n";
+    std::cout << "Ускорение: " << std::fixed << std::setprecision(2) << speedup << "x\n";
 
     return 0;
 }
